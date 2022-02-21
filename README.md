@@ -23,9 +23,43 @@ Submission for 2022 FBLA E - Business Competition
 │   │   ├── shop.py -- handles all shop-specific views (items browsing, item view, etc...)
 │   ├── static
 │   ├── templates
+│   │   ├── auth
+│   │   │   ├── admin
+│   │   │   │   └── dashboard.html
+│   │   │   ├── customer
+│   │   │   │   └── dashboard.html
+│   │   │   ├── login.html
+│   │   │   └── signup.html
+│   │   ├── base.html
+│   │   ├── main
+│   │   │   └── index.html
+│   │   └── shop
+│   │       ├── browse_item.html
+│   │       ├── browse_items.html
+│   │       └── cart.html
 │   ├── __init__.py -- sets up application
 ├── Procfile -- for heroku hosting
 ├── requirements.txt -- for required packages
 ├── wsgi -- for setting up wsgi server for gunicorn
 └── .gitignore
 ```
+
+Views:
+
+1. auth
+   1. login
+   2. signup
+   3. admin
+      1. dashboard
+   4. customer
+      1. dashboard
+2. main
+   1. index.html
+   2. contact
+   3. about
+3. shop
+   1. browse items
+   2. individual item
+   3. cart
+   4. checkout
+   
