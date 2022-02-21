@@ -63,3 +63,23 @@ Views:
    3. cart
    4. checkout
    
+Database Tables:
+1. User
+   1. uname
+   2. email
+   3. pwd
+   4. profile pic
+   5. address
+   6. phone num
+2. item
+   1. name
+   2. categories FK
+   3. price
+   4. description
+   5. img
+   6. stock
+3. cart
+   1. User FK
+   2. item FK
+4. category
+   1. name
