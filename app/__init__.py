@@ -2,7 +2,6 @@ from flask import Flask, render_template
 from flask_assets import Environment, Bundle
 from flask_login import LoginManager
 import os, tempfile
-from app.db.models import Product
 
 def create_app():
     app = Flask(__name__)
@@ -48,6 +47,7 @@ def create_app():
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
     ######### DB #################
+
     from .db.models import db,User
     db.init_app(app)
 
@@ -61,15 +61,7 @@ def create_app():
         return User.query.get(int(user_id))
 
     ###########ADDING ROUTES/BLUEPRINTS#############
-    @app.route('/')
-    def index():
-        products = Product.query.all()
-        for p in products:
-            p.price = "$" + str(p.price)
-        
-        return render_template("main/index.html", products=products)
-
-
+    
     # Forms
     from .forms.auth import auth
     app.register_blueprint(auth)
