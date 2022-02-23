@@ -1,5 +1,4 @@
 from unicodedata import category
-import app as app
 from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy
 
@@ -14,6 +13,7 @@ class User(db.Model, UserMixin):
     profile_pic = db.Column(db.String(80), unique=True)
     address = db.Column(db.String(80), unique=True)
     phonenum = db.Column(db.String(80), unique=True)
+    role = db.Column(db.String(80))
     
     orders = db.relationship('Order', backref='user', lazy=True)
 

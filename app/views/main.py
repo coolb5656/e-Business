@@ -17,6 +17,10 @@ index
 
 """
 
-@main.route('/main')
+@main.route('/')
 def index():
-    return render_template("main/index.html")
+    products = Product.query.all()
+    for p in products:
+        p.price = "$" + str(p.price)
+    
+    return render_template("main/index.html", products=products)

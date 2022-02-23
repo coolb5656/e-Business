@@ -6,7 +6,7 @@ from ..db.models import db, User, Product, Order
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 from sqlalchemy import and_
-from flask_login import login_user, login_required, logout_user
+from flask_login import login_user, login_required, logout_user, current_user
 
 auth = Blueprint('auth', __name__, url_prefix='/auth')
 
@@ -46,6 +46,7 @@ def signup():
         password = request.form.get('pwd')
         picture = request.files['file']
         address = request.form.get('address')
+        role = request.form.get('role')
         phonenum = request.form.get('phonenum')
 
         u = User.query.filter_by(email=email).first()
@@ -64,20 +65,29 @@ def signup():
             email=email,
             username=uname,
             pwd=generate_password_hash(password, method='sha256'),
-            profile_pic=file_path,
+            profile_pic=file_path.replace("app/", ""),
             address=address,
+            role=role,
             phonenum=phonenum
             )
         # add the new user to the database
         db.session.add(new_user)
         db.session.commit()
+        flash("Successfully signed up! Login now", "Notification")
         return redirect(url_for('auth.login'))
 
     return render_template('auth/signup.html')
 
+@auth.route("/dashboard")
+@login_required
+def auth_dashboard():
+    if current_user.role == "buyer":
+        return redirect(url_for("customer.dashboard"))
+    if current_user.role == "seller":
+        return redirect(url_for("admin.dashboard"))
 
 @auth.route('/logout')
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for("index"))
+    return redirect(url_for("main.index"))

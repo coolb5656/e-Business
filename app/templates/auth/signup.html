@@ -4,15 +4,38 @@
 {% block content %}
 <div class="container">
   <div class="row justify-content-center">
+
+    <div class="card p-4 m-5 w-50">
+      <h1 class="text-center">Signup</h1>
   <form action="signup" method="post" enctype="multipart/form-data">
-    {{m.input("email","Email: ")}}
-    {{m.input("uname","Username: ")}}
-    {{m.input("pwd","Password: ", type="password")}}
-    {{m.input("address","Address: ")}}
-    {{m.input("phonenum","Phone Number: ")}}
-    {{m.file_input("file","Profile Image: ", accept=".jpg")}}
-    <input type="submit" value="Submit">
-  </form>
+        <div class="mb-3">
+          {{m.input("email","Email: ")}}
+          <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+        </div>
+        <div class="mb-3">
+          {{m.input("uname","Username: ")}}
+        </div>
+        <div class="mb-3">
+          {{m.input("pwd","Password: ", type="password")}}
+        </div>
+        <div class="mb-3">
+          {{m.input("address","Address: ")}}
+        </div>
+        <div class="mb-3">
+          {{m.input("phonenum","Phone Number: ")}}
+        </div>
+        <div class="mb-3">
+          {{m.select_input("role","Seller or Buyer?", [("buyer", "Buyer"), ("seller", "Seller")]
+          )}}
+        </div>
+        <div class="mb-3">
+          {{m.file_input("file","Profile Image: ", accept=".jpg")}}
+        </div>
+
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
 </div>
 </div>
 
