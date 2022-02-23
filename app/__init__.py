@@ -41,7 +41,6 @@ def create_app():
 
     assets.register(bundles)
 
-
     ############# CONFIG #############
     app.config['SECRET_KEY'] = 'FBLA'
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
@@ -73,8 +72,8 @@ def create_app():
     from .views.main import main
     app.register_blueprint(main)
 
-    # from .views.shop import shop_v
-    # app.register_blueprint(shop_v)
+    from .views.shop import shop_v
+    app.register_blueprint(shop_v)
 
     # # Admin
     # from .admin.admin import admin

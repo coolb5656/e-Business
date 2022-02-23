@@ -34,70 +34,70 @@
     <!-- nav -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a href="{{url_for('main.index')}}" class="navbar-brand">Shoppable</a>
-
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarmain">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
+            
+            
+            <a href="{{url_for('main.index')}}" class="navbar-brand me-auto ms-auto text-center">Shoppable</a>
             <div class="collapse navbar-collapse" id="navbarmain">
                 <ul class="navbar-nav nav me-auto">
                     <li class="nav-item"><a href="#" class="nav-link">Link</a></li>
                     <li class="nav-item">
                         <div class="dropdown">
                             <button class="nav-item nav-link btn dropdown-toggle" type="button" id="dropdownMenuButton"
-                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Dropdown
-                            </button>
-                            <div class="dropdown-menu" id="dropdown">
-                                <a class="dropdown-item" href="#">Link</a>
-                                <a class="dropdown-item" href="#">Link</a>
-                            </div>
+                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Dropdown
+                        </button>
+                        <div class="dropdown-menu" id="dropdown">
+                            <a class="dropdown-item" href="#">Link</a>
+                            <a class="dropdown-item" href="#">Link</a>
                         </div>
-                    </li>
-                    <li class="nav-item"><a href="#" class="nav-link">Link</a></li>
+                    </div>
+                </li>
+                <li class="nav-item"><a href="#" class="nav-link">Link</a></li>
                     <li class="nav-item"><a href="#" class="nav-link">Link</a>
                     </li>
                     <li class="nav-item"><a href="#" class="nav-link">Link</a>
                     </li>
-
+                    
                 </ul>
-                <ul class="nav ml-auto">
-                    <li class="nav-item">
-                        <form action="shop/search" method="get">
-                            <div class="d-flex p-3">
-                                <input class="form-control mr-1" type="text" placeholder="Search">
-                                <button class="btn btn-primary"><i class="fa fa-search"></i></button>
-                            </div>
-                        </form>
-                        {%if current_user.is_authenticated %}
+            </div>
+            <button class="navbar-toggler ms-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarmain">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <ul class="nav ms-0` float-end">
+                <li class="nav-item">
+                    <form action="shop/search" method="get">
+                        <div class="d-flex p-3">
+                            <input class="form-control mr-1" type="text" placeholder="Search">
+                            <button class="btn btn-primary"><i class="fa fa-search"></i></button>
+                        </div>
+                    </form>
+                    {%if current_user.is_authenticated %}
                     <li>
                         <div class="dropdown">
                             <button class="btn p-0" data-bs-toggle="dropdown"><img
-                                    src="{{current_user.profile_pic}}" alt="Profile"
-                                    class="rounded-circle img-thumbnail p-0" width="64" height="64"></button>
-                            <div class="dropdown-menu dropdown-menu-end">
-                                <p class="px-4 pt-2">{{current_user.email}}</p>
-                                <a class="nav-link" href="{{url_for('auth.auth_dashboard')}}">Profile</a>
-                                <a class="nav-link" href="{{url_for('auth.logout')}}">Logout</a>
+                                src="{{current_user.profile_pic}}" alt="Profile"
+                                class="rounded-circle img-thumbnail p-0" width="64" height="64"></button>
+                                <div class="dropdown-menu dropdown-menu-end">
+                                    <p class="px-4 pt-2">{{current_user.email}}</p>
+                                    <a class="nav-link" href="{{url_for('auth.auth_dashboard')}}">Profile</a>
+                                    <a class="nav-link" href="{{url_for('auth.logout')}}">Logout</a>
+                                </div>
                             </div>
-                        </div>
-                    </li>
-                    {%else%}
-                    <li class="nav-item"><a class="nav-link" href="{{url_for('auth.login')}}">Login</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{url_for('auth.signup')}}">Signup</a></li>
-                    {%endif%}
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-    <div class="position-fixed top-10 end-0 p-3">
-        {%for c,m in messages%}
-        <div style="position: relative;">
-            <div class="toast" data-bs-autohide="false" role="alert" aria-live="assertive" aria-atomic="true">
+                        </li>
+                        {%else%}
+                        <li class="nav-item"><a class="nav-link" href="{{url_for('auth.login')}}">Login</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{url_for('auth.signup')}}">Signup</a></li>
+                        {%endif%}
+                    </ul>
+                </div>
+            </nav>
+            
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            <div class="position-fixed top-10 end-0 p-3">
+                {%for c,m in messages%}
+                <div style="position: relative;">
+                    <div class="toast" data-bs-autohide="false" role="alert" aria-live="assertive" aria-atomic="true">
                 <div class="toast-header">
                     <strong class="me-auto">{{c}}</strong>
                     <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
