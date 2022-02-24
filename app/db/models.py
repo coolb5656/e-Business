@@ -22,7 +22,7 @@ class User(db.Model, UserMixin):
 
 product_orders = db.Table(
     "product_orders",
-    db.Column("id", db.Integer, primary_key=True)
+    db.Column("id", db.Integer, primary_key=True),
     db.Column("product_id", db.Integer, db.ForeignKey("products.id")),
     db.Column("order_id", db.Integer, db.ForeignKey("orders.id")),
 )
@@ -35,7 +35,8 @@ class Product(db.Model):
     desc = db.Column(db.String(1000))
     img = db.Column(db.String(1000))
     stock = db.Column(db.String(1000))
-    
+
+
     def __repr__(self):
         return '<Product %r>' % self.name
 
