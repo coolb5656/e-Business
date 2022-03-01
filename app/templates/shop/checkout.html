@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% import 'macros.html.j2' as m %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center p-5 card">
+        <span class="py-3">Total: ${{total}}</span>
+        <form action="{{url_for('api.checkout')}}" method="post">
+            {{ m.input("card_num", "Card Number")}}
+            {{ m.input("card_date", "Exp Date")}}
+            {{ m.input("card_cvv", "CVV")}}
+            {{ m.input("card_name", "Name on Card")}}
+
+            <input type="submit" value="Pay" class="btn btn-primary my-4">
+        </form>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,7 +1,9 @@
 from flask import Flask, render_template
 from flask_assets import Environment, Bundle
 from flask_login import LoginManager
-import os, tempfile
+import os
+from app.db.models import Category
+
 
 def create_app():
     app = Flask(__name__)
@@ -16,7 +18,14 @@ def create_app():
 
     # Upload folder
     UPLOAD_FOLDER = 'app/static/upload'
-    app.config['UPLOAD_FOLDER'] =  UPLOAD_FOLDER
+    app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+    # Add Categories
+    @app.context_processor
+    def utility_processor():
+        def c():
+            return Category.query.all()
+        return dict(categories=c)
 
     ####### ASSETS ########
     assets = Environment(app)
@@ -36,7 +45,9 @@ def create_app():
             output='gen/customer.js'),
         'css': Bundle(
             'css/style.css',
+            # 'css/themes/tequila.css',
             output='gen/style.css'),
+
     }
 
     assets.register(bundles)
@@ -47,7 +58,7 @@ def create_app():
 
     ######### DB #################
 
-    from .db.models import db,User
+    from .db.models import db, User
     db.init_app(app)
 
     ############ LOGIN ##############
@@ -60,20 +71,23 @@ def create_app():
         return User.query.get(int(user_id))
 
     ###########ADDING ROUTES/BLUEPRINTS#############
-    
+
     # Forms
-    from .forms.auth import auth
+    from app.routes.forms.auth import auth
     app.register_blueprint(auth)
 
     # from .forms.shop import shop_f
     # app.register_blueprint(shop_f)
 
+    from app.routes.api.api import api
+    app.register_blueprint(api)
+
     # # Views
-    from .views.main import main
+    from app.routes.views.main import main
     app.register_blueprint(main)
 
-    from .views.shop import shop_v
-    app.register_blueprint(shop_v)
+    from app.routes.shop.shop import shop
+    app.register_blueprint(shop)
 
     # # Admin
     # from .admin.admin import admin
@@ -83,5 +97,5 @@ def create_app():
     # from .user.customer import customer
     # app.register_blueprint(customer)
 
-    db.app=app
+    db.app = app
     return app

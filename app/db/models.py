@@ -10,7 +10,7 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(80), unique=True, nullable=False)
     email = db.Column(db.String(80), unique=True, nullable=False)
     pwd = db.Column(db.String(100))
-    profile_pic = db.Column(db.String(80), unique=True)
+    profile_pic = db.Column(db.String(80), default="/static/placeholder/profile.jpg")
     address = db.Column(db.String(80), unique=True)
     phonenum = db.Column(db.String(80), unique=True)
     role = db.Column(db.String(80))
@@ -27,19 +27,27 @@ product_orders = db.Table(
     db.Column("order_id", db.Integer, db.ForeignKey("orders.id")),
 )
 
+product_category = db.Table(
+    "product_category",
+    db.Column("id", db.Integer, primary_key=True),
+    db.Column("product_id", db.Integer, db.ForeignKey("products.id")),
+    db.Column("category_id", db.Integer, db.ForeignKey("categories.id")),
+)
+
 class Product(db.Model):
     __tablename__ = 'products'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(1000))
     price = db.Column(db.String(1000))
     desc = db.Column(db.String(1000))
-    img = db.Column(db.String(1000))
+    img = db.Column(db.String(1000), default="/static/placeholder/item.jpg")
     stock = db.Column(db.String(1000))
+    key_words = db.Column(db.String(1000))
 
+    categories = db.relationship("Category", secondary=product_category, backref="products")
 
     def __repr__(self):
         return '<Product %r>' % self.name
-
 
 class Order(db.Model):
     __tablename__ = 'orders'
