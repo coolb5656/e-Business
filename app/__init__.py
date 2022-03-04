@@ -1,9 +1,12 @@
 from flask import Flask, render_template
 from flask_assets import Environment, Bundle
+from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
+from app.db.models import Category, User, db
+from flask_migrate import Migrate
 import os
-from app.db.models import Category
 
+migrate = Migrate()
 
 def create_app():
     app = Flask(__name__)
@@ -57,9 +60,8 @@ def create_app():
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
     ######### DB #################
-
-    from .db.models import db, User
     db.init_app(app)
+    migrate.init_app(app, db, render_as_batch=True)
 
     ############ LOGIN ##############
     login_manager = LoginManager()
