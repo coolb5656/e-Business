@@ -1,4 +1,6 @@
 __pycache__/
 .vscode/
 
+migrations
+
 **/__pycache__/
