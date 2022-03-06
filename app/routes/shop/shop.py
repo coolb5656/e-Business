@@ -1,3 +1,4 @@
+import numpy as np
 from functools import total_ordering
 from flask import Blueprint, render_template, redirect, url_for, request, flash
 from flask_login import current_user, login_required
@@ -55,5 +56,7 @@ def search_category(id):
 @shop.route('/search')
 def search():
     q = request.args.get("search")
-    p = Product.query.filter(Product.name.like('%' + q + '%'))
+    n = Product.query.filter(Product.name.like('%' + q + '%')).all()
+    k = Product.query.filter(Product.key_words.like('%' + q + '%')).all()
+    p = list(set(n + k))
     return render_template("shop/browse_items.html", products=p, title="Showing results for: " + q)

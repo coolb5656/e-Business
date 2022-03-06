@@ -1,4 +1,4 @@
 $(document).ready(function(){
-    $('.toast').toast("show");
     $('.carousel').carousel();
+    $('.toast').toast("show");
 })
