@@ -84,6 +84,8 @@ def auth_dashboard():
     if current_user.role == "buyer":
         return redirect(url_for("customer.dashboard"))
     if current_user.role == "seller":
+        return redirect(url_for("seller.dashboard"))
+    if current_user.role == "admin":
         return redirect(url_for("admin.dashboard"))
 
 @auth.route('/logout')

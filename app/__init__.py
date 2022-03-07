@@ -78,8 +78,8 @@ def create_app():
     from app.routes.forms.auth import auth
     app.register_blueprint(auth)
 
-    # from .forms.shop import shop_f
-    # app.register_blueprint(shop_f)
+    from app.routes.seller import seller
+    app.register_blueprint(seller)
 
     from app.routes.api.api import api
     app.register_blueprint(api)
