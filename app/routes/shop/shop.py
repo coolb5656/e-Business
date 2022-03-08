@@ -23,9 +23,9 @@ search
 def cart():
     p = [Product()]
     o = Order.query.filter_by(user_id=current_user.id).first()
+    total = 0
     if o:
         p = o.products
-        total = 0
         for prod in p:
             total += float(prod.price)
     return render_template("shop/cart.html", products = p, total=total)

@@ -1,5 +1,7 @@
+import uuid
 from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.dialects.postgresql import UUID
 
 db = SQLAlchemy()
 class User(db.Model, UserMixin):
@@ -20,16 +22,15 @@ class User(db.Model, UserMixin):
 
 product_orders = db.Table(
     "product_orders",
-    db.Column("id", db.Integer, primary_key=True),
-    db.Column("product_id", db.Integer, db.ForeignKey("products.id")),
-    db.Column("order_id", db.Integer, db.ForeignKey("orders.id")),
+    db.Column('id', db.Integer()),
+    db.Column('product_id', db.ForeignKey('products.id'), primary_key=True),
+    db.Column('order_id', db.ForeignKey('orders.id'), primary_key=True),
 )
 
 product_category = db.Table(
     "product_category",
-    db.Column("id", db.Integer, primary_key=True),
-    db.Column("product_id", db.Integer, db.ForeignKey("products.id")),
-    db.Column("category_id", db.Integer, db.ForeignKey("categories.id")),
+    db.Column("product_id", db.Integer, db.ForeignKey("products.id"), primary_key=True),
+    db.Column("category_id", db.Integer, db.ForeignKey("categories.id"), primary_key=True),
 )
 
 class Product(db.Model):
