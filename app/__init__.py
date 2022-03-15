@@ -1,3 +1,4 @@
+import json
 from flask import Flask, render_template
 from flask_assets import Environment, Bundle
 from flask_sqlalchemy import SQLAlchemy
@@ -5,8 +6,13 @@ from flask_login import LoginManager
 from app.db.models import Category, User, db
 from flask_migrate import Migrate
 import os
+from sqlalchemy.ext import mutable
 
 migrate = Migrate()
+
+
+
+
 
 def create_app():
     app = Flask(__name__)
@@ -95,9 +101,9 @@ def create_app():
     # from .admin.admin import admin
     # app.register_blueprint(admin)
 
-    # # User
-    # from .user.customer import customer
-    # app.register_blueprint(customer)
+    # User
+    from app.routes.user.customer import customer
+    app.register_blueprint(customer)
 
     db.app = app
     return app

@@ -1,12 +1,31 @@
+import json
 import uuid
 from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.dialects.postgresql import UUID
 
+
 db = SQLAlchemy()
+
+class JsonEncodedDict(db.TypeDecorator):
+    """Enables JSON storage by encoding and decoding on the fly."""
+    impl = db.Text
+
+    def process_bind_param(self, value, dialect):
+        if value is None:
+            return '{}'
+        else:
+            return json.dumps(value)
+
+    def process_result_value(self, value, dialect):
+        if value is None:
+            return {}
+        else:
+            return json.loads(value)
+
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
     email = db.Column(db.String(80), unique=True, nullable=False)
     pwd = db.Column(db.String(100))
@@ -35,7 +54,7 @@ product_category = db.Table(
 
 class Product(db.Model):
     __tablename__ = 'products'
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(1000))
     price = db.Column(db.String(1000))
     desc = db.Column(db.String(1000))
@@ -50,7 +69,7 @@ class Product(db.Model):
 
 class Order(db.Model):
     __tablename__ = 'orders'
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
 
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
     products = db.relationship("Product", secondary=product_orders, backref="orders")
@@ -60,10 +79,8 @@ class Order(db.Model):
 
 class Category(db.Model):
     __tablename__ = 'categories'
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(1000))
 
     def __repr__(self):
         return '<Category %r>' % self.name
-
-

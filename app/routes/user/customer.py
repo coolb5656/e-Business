@@ -10,22 +10,29 @@ customer = Blueprint('customer', __name__, url_prefix='/customer')
 """
 ROUTES
 
-dashboard
-orders
-settings
+cart
+checkout
 """
 
-@customer.route('/dashboard')
+@customer.route("/cart")
 @login_required
-def dashboard():
-    return render_template("customer/dashboard.html")
+def cart():
+    p = []
+    o = Order.query.filter_by(user_id=current_user.id).first()
+    total = 0
+    if o:
+        p = o.products
+        for prod in p:
+            total += float(prod.price)
+    return render_template("shop/cart.html", products = p, total=total)
 
-@customer.route('/orders')
+@customer.route("/checkout")
 @login_required
-def orders():
-    return render_template("customer/dashboard.html")
-
-@customer.route('/settings')
-@login_required
-def settings():
-    return render_template("customer/dashboard.html")
+def checkout():
+    o = Order.query.filter_by(user_id=current_user.id).first()
+    total=0
+    if o:
+        p = o.products
+        for prod in p:
+            total += float(prod.price)
+    return render_template("shop/checkout.html", products = p, total=total)

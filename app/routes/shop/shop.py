@@ -11,35 +11,11 @@ shop = Blueprint('shop', __name__, url_prefix='/shop')
 
 """
 ROUTES
-cart - shows cart contents
-checkout - handles payment
 item
 category
 search
 """
 
-@shop.route("/cart")
-@login_required
-def cart():
-    p = [Product()]
-    o = Order.query.filter_by(user_id=current_user.id).first()
-    total = 0
-    if o:
-        p = o.products
-        for prod in p:
-            total += float(prod.price)
-    return render_template("shop/cart.html", products = p, total=total)
-
-@shop.route("/checkout")
-@login_required
-def checkout():
-    o = Order.query.filter_by(user_id=current_user.id).first()
-    if o:
-        p = o.products
-        total=0
-        for prod in p:
-            total += float(prod.price)
-    return render_template("shop/checkout.html", products = p, total=total)
 
 @shop.route('/item/<id>')
 def view_item(id):

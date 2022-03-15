@@ -3,6 +3,7 @@ from flask_login import current_user, login_required
 from app.db.models import db, User, Product, Order, Category
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy import and_
+import pandas as pd
 
 api = Blueprint('api', __name__, url_prefix='/api')
 
@@ -39,7 +40,8 @@ def delete_from_cart(id):
     return redirect(url_for("shop.cart"))
 
 
-@api.route("/checkout")
+@api.route("/checkout", methods=["POST"])
 @login_required
 def checkout():
+    flash("Not Integrated Yet!", "Error")
     return redirect(url_for("main.index"))
