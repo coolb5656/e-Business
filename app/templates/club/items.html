@@ -1,0 +1,33 @@
+{% extends "student/base.html" %}
+{% import 'macros.html.j2' as m %}
+
+{% block main %}
+<div class="container-fluid">
+    <div class="row col-12 m-5">
+        <h1 class="text-center">Items</h1>
+    </div>
+    <hr class="w-75 mx-auto p-0 bg-dark opacity-100 rounded">
+    <div class="row">
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Price</th>
+                <th scope="col">Stock</th>
+                <th scope="col">Sales</th>
+              </tr>
+            </thead>
+            <tbody>
+                {%for item in i%}
+                <tr>
+                    <td>{{item.name}}</td>
+                    <td>{{item.price}}</td>
+                    <td>{{item.stock}}</td>
+                    <td>{{item.sales}}</td>
+                  </tr>
+                {%endfor%}
+            </tbody>
+          </table>
+    </div>
+</div>
+{% endblock %}

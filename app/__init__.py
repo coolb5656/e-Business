@@ -1,4 +1,3 @@
-import json
 from flask import Flask, render_template
 from flask_assets import Environment, Bundle
 from flask_sqlalchemy import SQLAlchemy
@@ -9,9 +8,6 @@ import os
 from sqlalchemy.ext import mutable
 
 migrate = Migrate()
-
-
-
 
 
 def create_app():
@@ -79,31 +75,30 @@ def create_app():
         return User.query.get(int(user_id))
 
     ###########ADDING ROUTES/BLUEPRINTS#############
-
     # Forms
     from app.routes.forms.auth import auth
     app.register_blueprint(auth)
 
-    from app.routes.seller import seller
-    app.register_blueprint(seller)
+    from app.routes.club import club
+    app.register_blueprint(club)
 
     from app.routes.api.api import api
     app.register_blueprint(api)
 
-    # # Views
+    # Views
     from app.routes.views.main import main
     app.register_blueprint(main)
 
     from app.routes.shop.shop import shop
     app.register_blueprint(shop)
 
-    # # Admin
-    # from .admin.admin import admin
-    # app.register_blueprint(admin)
+    # Admin
+    from app.routes.admin.admin import admin
+    app.register_blueprint(admin)
 
     # User
-    from app.routes.user.customer import customer
-    app.register_blueprint(customer)
+    from app.routes.student.student import student
+    app.register_blueprint(student)
 
     db.app = app
     return app

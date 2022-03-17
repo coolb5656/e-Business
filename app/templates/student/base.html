@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% import 'macros.html.j2' as m %}
+
+{% block content %}
+<div class="container-fluid row p-0">
+<div class="col-3 bg-dark position-fixed" style="width: 280px; height: 100vh;">
+    <a href="/" class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
+        <span class="ps-4 fs-5 fw-semibold text-light">Club Panel</span>
+    </a>
+    <ul class="list-unstyled ps-0">
+        <li class="mb-3"><a href="{{url_for('student.dashboard')}}"
+                class="btn btn-dark w-100 text-decoration-none text-align-center link-light rounded">Dashboard</a></li>
+        <li class="mb-3">
+            <button class="w-100 btn btn-dark btn-toggle align-items-center collapsed" data-bs-toggle="collapse"
+                data-bs-target="#items-collapse">
+                Items
+            </button>
+            <div class="collapse bg-light" id="items-collapse">
+                <ul class="btn btn-toggle-nav list-unstyled fw-normal pb-1 small w-100">
+                    <li><a href="{{url_for('club.items')}}"
+                            class="w-100 text-decoration-none text-align-center link-dark rounded">Overview</a>
+                    </li>
+                    <li><a href="{{url_for('club.add_items')}}"
+                            class="w-100 text-decoration-none text-align-center link-dark rounded">Add</a></li>
+                    <li><a href="{{url_for('club.report_items')}}"
+                            class="w-100 text-decoration-none text-align-center link-dark rounded">Reports</a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+        <li class="mb-3">
+            <button class="w-100 btn btn-dark btn-toggle align-items-center collapsed" data-bs-toggle="collapse"
+                data-bs-target="#orders-collapse">
+                Orders
+            </button>
+            <div class="collapse bg-light" id="orders-collapse">
+                <ul class="btn btn-toggle-nav list-unstyled fw-normal pb-1 small w-100">
+                    <li><a href="{{url_for('club.orders')}}"
+                            class="w-100 text-decoration-none text-align-center link-dark rounded">Overview</a>
+                    </li>
+                    <li><a href="{{url_for('club.report_orders')}}"
+                            class="w-100 text-decoration-none text-align-center link-dark rounded">Reports</a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+        <li class="mb-3"><a href="{{url_for('club.settings')}}"
+                class="btn btn-dark w-100 text-decoration-none text-align-center link-light rounded">Settings</a></li>
+
+    </ul>
+
+</div>
+<div class="col offset-2">
+{% block main %}
+
+{% endblock %}
+</div>
+</div>
+{% endblock %}

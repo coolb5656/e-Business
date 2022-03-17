@@ -7,7 +7,7 @@
         <div id="carouselExampleIndicators" class="carousel slide d-none d-lg-block" data-bs-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active" data-bs-interval="0">
-                    <div class="d-flex justify-content-center w-100"><img src="{{featured[0].img}}" class="img-inline align-middle" alt="..."></div>
+                    <div class="d-flex justify-content-center w-100"><img src="{{ url_for('static', filename=featured[0].img)}}" class="img-inline align-middle" alt="..."></div>
                     <div class="carousel-caption bg-secondary p-2">
                         <h5>{{featured[0].name}}</h5>
                         <p>{{featured[0].price}}</p>
@@ -15,7 +15,7 @@
                 </div>
                 {%for i in featured[1:]%}
                 <div class="carousel-item" data-bs-interval="4000">
-                    <div class="d-flex justify-content-center w-100"><img src="{{i.img}}" class="d-block img-inline align-middle" alt="..."></div>
+                    <div class="d-flex justify-content-center w-100"><img src="{{ url_for('static', filename=i.img) }}" class="d-block img-inline align-middle" alt="..."></div>
                     <div class="carousel-caption bg-secondary p-2 m-0">
                         <h5>{{i.name}}</h5>
                         <p>{{i.price}}</p>

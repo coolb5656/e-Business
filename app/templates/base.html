@@ -63,19 +63,15 @@
                         {%if current_user.is_authenticated %}
                     <li>
                         <div class="dropdown">
-                            <button class="btn p-0" data-bs-toggle="dropdown"><img src="{{current_user.profile_pic}}"
+                            <button class="btn p-0" data-bs-toggle="dropdown"><img src="{{ url_for('static', filename=current_user.profile_pic) }}"
                                     alt="Profile" class="rounded-circle img-thumbnail p-0" width="64"
                                     height="64"></button>
                             <div class="dropdown-menu dropdown-menu-end">
                                 <p class="px-4 pt-2">{{current_user.email}}</p>
 
-                                {%if current_user.role == "seller" or current_user.role == "admin" %}
                                 <a class="nav-link text-dark text-center"
                                     href="{{url_for('auth.auth_dashboard')}}">Dashboard</a>
-
-                                {%else%}
-                                <a class="nav-link text-dark text-center" href="{{url_for('customer.cart')}}">Cart</a>
-                                {%endif%}
+                                <a class="nav-link text-dark text-center" href="{{url_for('student.cart')}}">Cart</a>
 
                                 <a class="nav-link text-dark text-center" href="{{url_for('auth.logout')}}">Logout</a>
                             </div>
@@ -97,8 +93,6 @@
 
     {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
-    <div style="min-height: 200px;margin-top: 10rem;" class="fixed-top">
-    <div style="position: relative;">
         {%for c,m in messages%}
         <div class="toast m-2" data-bs-autohide="false" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="toast-header">
@@ -110,8 +104,6 @@
             </div>
         </div>
         {%endfor%}
-    </div>
-    </div>
     {% endif %}
     {% endwith %}
 

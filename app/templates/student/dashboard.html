@@ -1,0 +1,79 @@
+{% extends "student/base.html" %}
+{% import 'macros.html.j2' as m %}
+
+{% block main %}
+<div class="container-fluid">
+    <div class="row col-12 m-5">
+        <h1 class="text-center">Dashboard</h1>
+    </div>
+    <hr class="w-75 mx-auto p-0 bg-dark opacity-100 rounded">
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="m-2 h-100 border">
+                <h1 class="p-5">Number Of All Time Views</h1>
+                <h2 class="text-center text-dark">{{s.views}}</h2>
+            </div>
+        </div>
+        <div class="col-md-4  mb-4">
+            <div class="m-2 h-100 border">
+                <h1 class="p-5">Number of All Time Sales</h1>
+                <h2 class="text-center text-dark">{{s.sales}}</h2>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="m-2 h-100 border">
+                <h1 class="p-5">Number of Items</h1>
+                <h2 class="text-center text-dark">50</h2>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="m-2 h-100 border">
+                <h1 class="p-5">Most Sold Item</h1>
+                <h2 class="text-center text-dark">Product 0</h2>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="m-2 h-100 border">
+                <h1 class="p-5">Most Viewed Item</h1>
+                <h2 class="text-center text-dark">Product 0</h2>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="m-2 h-100 border">
+                <h1 class="p-5">Least Sold Item</h1>
+                <h2 class="text-center text-dark">Product 1</h2>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4" >
+            <h1 class="p-5">Pending Orders</h1>
+            <ul class="list-group">
+                <li class="list-group-item">An item</li>
+                <li class="list-group-item">A second item</li>
+                <li class="list-group-item">A third item</li>
+                <li class="list-group-item">A fourth item</li>
+                <li class="list-group-item">And a fifth one</li>
+            </ul>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="m-2 h-100 border">
+                <h1 class="p-5">Gross Profit</h1>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="m-2 h-100 border">
+                <h1 class="p-5">Net Profit</h1>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <h1 class="p-5">Sales over time</h1>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

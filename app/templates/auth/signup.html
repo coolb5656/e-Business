@@ -7,7 +7,7 @@
 
     <div class="card p-4 m-5 w-50">
       <h1 class="text-center">Signup</h1>
-  <form action="signup" method="post" enctype="multipart/form-data">
+      <form action="student" method="post" enctype="multipart/form-data">
         <div class="mb-3">
           {{m.input("email","Email: ")}}
           <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
@@ -25,18 +25,17 @@
           {{m.input("phonenum","Phone Number: ")}}
         </div>
         <div class="mb-3">
-          {{m.select_input("role","Seller or Buyer?", [("buyer", "Buyer"), ("seller", "Seller")]
-          )}}
-        </div>
-        <div class="mb-3">
           {{m.file_input("file","Profile Image: ", accept=".jpg")}}
         </div>
 
-
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <div class="mb-3">
+          <button type="submit" class="btn btn-primary">Submit</button>
+          <div id="clubHelp" class="form-text">Signing up a Club? <a href="{{url_for('auth.signup_club')}}">Click Here!</a></div>
+          <div id="loginHelp" class="form-text">Already have an account? <a href="{{url_for('auth.login')}}">Click Here!</a></div>
+        </div>
       </form>
     </div>
-</div>
+  </div>
 </div>
 
 {% endblock %}

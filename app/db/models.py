@@ -1,39 +1,19 @@
-import json
-import uuid
 from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy.dialects.postgresql import UUID
-
 
 db = SQLAlchemy()
-
-class JsonEncodedDict(db.TypeDecorator):
-    """Enables JSON storage by encoding and decoding on the fly."""
-    impl = db.Text
-
-    def process_bind_param(self, value, dialect):
-        if value is None:
-            return '{}'
-        else:
-            return json.dumps(value)
-
-    def process_result_value(self, value, dialect):
-        if value is None:
-            return {}
-        else:
-            return json.loads(value)
-
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
     email = db.Column(db.String(80), unique=True, nullable=False)
     pwd = db.Column(db.String(100))
-    profile_pic = db.Column(db.String(80), default="/static/placeholder/profile.jpg")
+    profile_pic = db.Column(db.String(80), default="/placeholder/profile.jpg")
     address = db.Column(db.String(80), unique=True)
     phonenum = db.Column(db.String(80), unique=True)
-    role = db.Column(db.String(80))
+    role = db.Column(db.String(100))
     
+    club = db.relationship('Club', backref='user', lazy=True)
     orders = db.relationship('Order', backref='user', lazy=True)
 
     def __repr__(self):
@@ -58,10 +38,12 @@ class Product(db.Model):
     name = db.Column(db.String(1000))
     price = db.Column(db.String(1000))
     desc = db.Column(db.String(1000))
-    img = db.Column(db.String(1000), default="/static/placeholder/item.jpg")
+    img = db.Column(db.String(1000), default="/placeholder/item.jpg")
     stock = db.Column(db.String(1000))
     key_words = db.Column(db.String(1000))
-
+    sales = db.Column(db.Integer)
+    
+    club_id = db.Column(db.Integer, db.ForeignKey("clubs.id"))
     categories = db.relationship("Category", secondary=product_category, backref="products")
 
     def __repr__(self):
@@ -84,3 +66,18 @@ class Category(db.Model):
 
     def __repr__(self):
         return '<Category %r>' % self.name
+
+class Club(db.Model):
+    __tablename__ = 'clubs'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name = db.Column(db.String(1000))
+    desc = db.Column(db.String(1000))
+    img = db.Column(db.String(1000), default="/placeholder/club.jpg")
+    key_words = db.Column(db.String(1000))
+    phonenum = db.Column(db.String(80), unique=True)
+
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+    products = db.relationship('Product', backref='club', lazy=True)
+
+    def __repr__(self):
+        return '<Club %r>' % self.name

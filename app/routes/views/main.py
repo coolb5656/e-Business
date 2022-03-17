@@ -19,7 +19,8 @@ index
 
 @main.route('/')
 def index():
-    products = Product.query.order_by(Product.price.desc())
+    products = [Product()]
+    products = Product.query.order_by(Product.price.desc()).all()
     for p in products:
         p.price = "$" + str(p.price)
     featured = products

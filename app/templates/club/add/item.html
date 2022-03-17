@@ -1,0 +1,39 @@
+{% extends "student/base.html" %}
+{% import 'macros.html.j2' as m %}
+
+{% block main %}
+
+<div class="container-fluid">
+    <div class="row col-12 m-5">
+        <h1 class="text-center">Add Item</h1>
+    </div>
+    <hr class="w-75 mx-auto p-0 bg-dark opacity-100 rounded">
+    <div class="row">
+        <form action="add" method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+                {{m.input("name","Name: ")}}
+            </div>
+            <div class="mb-3">
+                {{m.input("price","Price: ")}}
+            </div>
+            <div class="mb-3">
+                <textarea name="desc" cols="30" rows="10" placeholder="Description" class="form-control p-2"></textarea>
+            </div>
+            <div class="mb-3">
+                {{m.input("stock","Stock: ")}}
+            </div>
+            <div class="mb-3">
+                {{m.input("key_words","Key Words: ")}}
+                <div id="keywordsHelp" class="form-text">Seperate words by spaces, e.g football sport jersey</div>
+            </div>
+            <div class="mb-3">
+                {{m.file_input("file","Item Image: ", accept=".jpg")}}
+            </div>
+
+            <div class="mb-3">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

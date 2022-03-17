@@ -7,7 +7,6 @@ Create Date: 2022-03-12 15:12:34.209671
 """
 from alembic import op
 import sqlalchemy as sa
-from app.db.models import JsonEncodedDict
 
 # revision identifiers, used by Alembic.
 revision = '8d0b8865ce95'
@@ -21,7 +20,6 @@ def upgrade():
     op.create_table('logs',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=True),
-    sa.Column('orders', JsonEncodedDict(), nullable=True),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
