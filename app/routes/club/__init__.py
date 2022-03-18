@@ -80,7 +80,12 @@ def report_items():
 @club.route('/orders')
 @login_required
 def orders():
-    return render_template("club/orders.html", o=[])
+    c = Club.query.filter_by(user_id=current_user.id).first()
+    o = c.pending_orders
+    p = []
+    for order in o:
+        p.append(order.product)
+    return render_template("club/orders.html", o=o)
 
 @club.route('/orders/reports')
 @login_required

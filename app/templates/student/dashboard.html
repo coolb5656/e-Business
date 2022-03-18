@@ -23,7 +23,7 @@
         <div class="col-md-4 mb-4">
             <div class="m-2 h-100 border">
                 <h1 class="p-5">Number of Items</h1>
-                <h2 class="text-center text-dark">50</h2>
+                <h2 class="text-center text-dark">{{s.num_items}}</h2>
             </div>
         </div>
     </div>
@@ -31,48 +31,38 @@
         <div class="col-md-4 mb-4">
             <div class="m-2 h-100 border">
                 <h1 class="p-5">Most Sold Item</h1>
-                <h2 class="text-center text-dark">Product 0</h2>
+                <h2 class="text-center text-dark">{{s.most_sold.name}}</h2>
             </div>
         </div>
         <div class="col-md-4 mb-4">
             <div class="m-2 h-100 border">
                 <h1 class="p-5">Most Viewed Item</h1>
-                <h2 class="text-center text-dark">Product 0</h2>
+                <h2 class="text-center text-dark">{{s.most_viewed.name}}</h2>
             </div>
         </div>
         <div class="col-md-4 mb-4">
             <div class="m-2 h-100 border">
-                <h1 class="p-5">Least Sold Item</h1>
-                <h2 class="text-center text-dark">Product 1</h2>
+                <h1 class="p-5">Most Popular Item</h1>
+                <h2 class="text-center text-dark">{{s.most_popular.name}}</h2>
             </div>
         </div>
     </div>
     <div class="row">
-        <div class="col-md-4" >
-            <h1 class="p-5">Pending Orders</h1>
-            <ul class="list-group">
-                <li class="list-group-item">An item</li>
-                <li class="list-group-item">A second item</li>
-                <li class="list-group-item">A third item</li>
-                <li class="list-group-item">A fourth item</li>
-                <li class="list-group-item">And a fifth one</li>
-            </ul>
-        </div>
-        <div class="col-md-4 mb-4">
+        {%if pending_orders%}
+        <div class="col-md-12">
             <div class="m-2 h-100 border">
-                <h1 class="p-5">Gross Profit</h1>
+                <h1 class="p-5 text-center">Pending Orders</h1>
+                <ul class="list-group mx-3">
+                    {%for i in pending_orders%}
+                    <li class="list-group-item row text-center"><h3>
+                        {{i.user.name}}:
+                        <small class="text-muted">{{i.product.name}}</small>
+                      </h3></li>
+                    {%endfor%}
+                </ul>
             </div>
         </div>
-        <div class="col-md-4 mb-4">
-            <div class="m-2 h-100 border">
-                <h1 class="p-5">Net Profit</h1>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-12">
-            <h1 class="p-5">Sales over time</h1>
-        </div>
+        {%endif%}
     </div>
 </div>
 

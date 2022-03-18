@@ -43,6 +43,7 @@ def login():
 @auth.route("/signup/student", methods=["GET", "POST"])
 def signup():
     if request.method == "POST":
+        name = request.form.get('name')
         uname = request.form.get('uname')
         email = request.form.get('email')
         password = request.form.get('pwd')
@@ -64,6 +65,7 @@ def signup():
 
         new_user = User(
             email=email,
+            name=name,
             username=uname,
             pwd=generate_password_hash(password, method='sha256'),
             profile_pic=file_path.replace("app/static/", ""),

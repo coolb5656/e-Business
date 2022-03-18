@@ -2,7 +2,7 @@ import numpy as np
 from functools import total_ordering
 from flask import Blueprint, render_template, redirect, url_for, request, flash
 from flask_login import current_user, login_required
-from app.db.models import db, User, Product, Order, Category
+from app.db.models import Club, db, User, Product, Order, Category
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy import and_
 
@@ -20,12 +20,19 @@ search
 @shop.route('/item/<id>')
 def view_item(id):
     p = Product.query.filter_by(id=id).first()
+    p.views += 1
+    db.session.commit()
     return render_template("shop/browse_item.html", product=p)
 
 @shop.route('/category/<id>')
 def search_category(id):
     c = Category.query.filter_by(id=id).first()
-    print(c)
+    p = c.products
+    return render_template("shop/browse_items.html", products=p, title=c.name)
+
+@shop.route('/club/<id>')
+def search_club(id):
+    c = Club.query.filter_by(id=id).first()
     p = c.products
     return render_template("shop/browse_items.html", products=p, title=c.name)
 
