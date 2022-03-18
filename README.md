@@ -6,42 +6,89 @@ Submission for 2022 FBLA E - Business Competition
 # Folder Structure
 
 ```
-├── src
+app
+├── db
+│   ├── __init__.py
+│   ├── models.py
+├── db.sqlite
+├── __init__.py
+├── routes
 │   ├── admin
-│   │   ├── admin.py --handles all admin only views
+│   │   ├── admin.py
+│   │   ├── __init__.py
 │   ├── api
-│   │   ├── api.py --handles all backend, never seen by user
-│   ├── db
-│   │   ├── models.py -- outlines database table structure
-│   ├── user
-│   │   ├── customer.py -- handles all non admin views
+│   │   ├── api.py
+│   │   ├── __init__.py
+│   ├── club
+│   │   ├── __init__.py
 │   ├── forms
-│   │   ├── auth.py -- handles all login/signup views
-│   │   ├── shop.py -- handles all shopping views(cart, checkout)
-│   ├── views
-│   │   ├── main.py -- handles all non-specific views (homepage, contact, etc...)
-│   │   ├── shop.py -- handles all shop-specific views (items browsing, item view, etc...)
-│   ├── static
-│   ├── templates
-│   │   ├── auth
-│   │   │   ├── admin
-│   │   │   │   └── dashboard.html
-│   │   │   ├── customer
-│   │   │   │   └── dashboard.html
-│   │   │   ├── login.html
-│   │   │   └── signup.html
-│   │   ├── base.html
-│   │   ├── main
-│   │   │   └── index.html
-│   │   └── shop
-│   │       ├── browse_item.html
-│   │       ├── browse_items.html
-│   │       └── cart.html
-│   ├── __init__.py -- sets up application
-├── Procfile -- for heroku hosting
-├── requirements.txt -- for required packages
-├── wsgi -- for setting up wsgi server for gunicorn
-└── .gitignore
+│   │   ├── auth.py
+│   │   ├── __init__.py
+│   ├── __init__.py
+│   ├── shop
+│   │   ├── __init__.py
+│   │   └── shop.py
+│   ├── student
+│   │   ├── __init__.py
+│   │   └── student.py
+│   └── views
+│       ├── __init__.py
+│       ├── main.py
+├── static
+│   ├── all.css
+│   ├── css
+│   │   ├── style.css
+│   │   └── themes
+│   │       └── tequila.css
+│   ├── gen
+│   │   ├── app.js
+│   │   └── style.css
+│   ├── img
+│   │   ├── favicon.ico
+│   │   ├── logo_mobile.png
+│   │   └── logo.png
+│   ├── js
+│   │   └── app.js
+│   ├── placeholder
+│   │   ├── item.jpg
+│   │   └── profile.jpg
+│   ├── scss
+│   │   └── bootstrap.scss
+│   └── upload
+└── templates
+    ├── admin
+    │   ├── base.html
+    │   └── dashboard.html
+    ├── auth
+    │   ├── admin
+    │   │   └── dashboard.html
+    │   ├── club
+    │   │   └── signup.html
+    │   ├── customer
+    │   │   └── dashboard.html
+    │   ├── login.html
+    │   └── signup.html
+    ├── base.html
+    ├── club
+    │   ├── add
+    │   │   └── item.html
+    │   ├── items.html
+    │   ├── orders.html
+    │   ├── reports
+    │   │   ├── item.html
+    │   │   └── order.html
+    │   └── settings.html
+    ├── macros.html.j2
+    ├── main
+    │   └── index.html
+    ├── shop
+    │   ├── browse_item.html
+    │   ├── browse_items.html
+    │   ├── cart.html
+    │   └── checkout.html
+    └── student
+        ├── base.html
+        └── dashboard.html
 ```
 
 Views:
