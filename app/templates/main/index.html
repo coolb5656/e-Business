@@ -4,6 +4,7 @@
 {% block content %}
 <div class="container-fluid">
     <div class="row justify-content-center m-0">
+        {%if featured%}
         <div id="carouselExampleIndicators" class="carousel slide d-none d-lg-block" data-bs-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active" data-bs-interval="0">
@@ -24,12 +25,15 @@
                 {%endfor%}
             </div>
         </div>
+        {%endif%}
+        {%if products%}
         {%for i in products%}
         {% call m.card(i.img, href=url_for('shop.view_item', id=i.id)) %}
         <h2 class="p-2 pt-4 ps-3">{{i.name}}</h2>
         <p class="p-2">{{i.price}}</p>
         {% endcall %}
         {%endfor%}
+        {%endif%}
     </div>
 </div>
 
