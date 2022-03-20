@@ -16,7 +16,6 @@ def create_app():
     is_prod = os.environ.get('IS_HEROKU', None)
 
     if is_prod:
-        # app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://arcmlpkkktnfui:5170d135b04f8b0e8b0daee17b31e690b1d3e70a9b5f3c0a6df5a68f3a01f083@ec2-35-174-56-18.compute-1.amazonaws.com:5432/d3p2h47beia405'
         app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
         app.config["DEBUG"] = False
     else:
