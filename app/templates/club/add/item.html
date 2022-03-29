@@ -27,6 +27,14 @@
                 <div id="keywordsHelp" class="form-text">Seperate words by spaces, e.g football sport jersey</div>
             </div>
             <div class="mb-3">
+                <label for="category">Category</label>
+                <select class="form-select my-2 py-2" name="category">
+                    {%for c in categories()%}
+                    <option value="{{c.id}}">{{c.name}}</option>
+                    {%endfor%}
+                </select>
+            </div>
+            <div class="mb-3">
                 {{m.file_input("file","Item Image: ", accept=".jpg")}}
             </div>
 

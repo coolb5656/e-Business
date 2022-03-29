@@ -2,7 +2,7 @@ from fileinput import filename
 import os
 from unicodedata import name
 from flask import Blueprint, render_template, redirect, url_for, request, flash, current_app
-from app.db.models import db, User, Product, Order, Club
+from app.db.models import Category, db, User, Product, Order, Club
 from werkzeug.utils import secure_filename
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy import and_
@@ -41,8 +41,9 @@ def add_items():
         picture = request.files['file']
         stock = request.form.get('stock')
         key_words = request.form.get('key_words')
-        categories = request.form.get('categories')
+        category = request.form.get('category')
 
+        category = Category.query.filter_by(id=category).first()
         p = Product.query.filter_by(name=name).first()
 
         if p: 
@@ -61,7 +62,8 @@ def add_items():
             desc=desc,
             stock=stock,
             key_words=key_words,
-            name = name
+            name = name,
+            categories = [category]
             )
         # add the new user to the database
         db.session.add(new_item)

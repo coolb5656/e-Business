@@ -22,8 +22,6 @@ def index():
     products = [Product()]
     products = Product.query.order_by(Product.name.desc()).all()
     clubs = Club.query.order_by(Club.name.desc()).all()
-    for p in products:
-        p.price = "$" + str(p.price)
     featured = Product.query.order_by(Product.views.desc()).all()
     featured = featured[:5]
     return render_template("main/index.html", products=products, featured=featured, clubs=clubs)

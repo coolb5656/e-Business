@@ -46,7 +46,7 @@ def generate_stats(club):
 def cart():
     p = []
     o = Order.query.filter_by(user_id=current_user.id).first()
-    total = 0
+    total = 0.0
     if o:
         p = o.products
         for prod in p:

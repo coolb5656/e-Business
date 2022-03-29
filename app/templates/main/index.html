@@ -9,17 +9,17 @@
             <div class="carousel-inner">
                 <div class="carousel-item active" data-bs-interval="0">
                     <div class="d-flex justify-content-center w-100"><img style="max-height:1024px; min-height: 512px;" src="{{ url_for('static', filename=featured[0].img)}}" class="img-inline align-middle" alt="..."></div>
-                    <div class="carousel-caption bg-secondary p-2 w-75">
+                    <div class="carousel-caption bg-secondary p-2 w-25 mx-auto">
                         <h5>{{featured[0].name}}</h5>
-                        <p>{{featured[0].price}}</p>
+                        <p>${{featured[0].price}}</p>
                     </div>
                 </div>
                 {%for i in featured[1:]%}
                 <div class="carousel-item" data-bs-interval="4000">
                     <div class="d-flex justify-content-center w-100"><img style="max-height:1024px; min-height: 512px;" src="{{ url_for('static', filename=i.img) }}" class="d-block img-inline align-middle" alt="..."></div>
-                    <div class="carousel-caption bg-secondary p-2 w-75">
+                    <div class="carousel-caption bg-secondary p-2 w-25 mx-auto">
                         <h5>{{i.name}}</h5>
-                        <p>{{i.price}}</p>
+                        <p>${{i.price}}</p>
                     </div>
                 </div>
                 {%endfor%}
@@ -32,7 +32,7 @@
         {%for i in products%}
         {% call m.card(i.img, href=url_for('shop.view_item', id=i.id)) %}
         <h2 class="p-2 pt-4 ps-3">{{i.name}}</h2>
-        <p class="p-2">{{i.price}}</p>
+        <p class="p-2">${{i.price}}</p>
         {% endcall %}
         {%endfor%}
         {%endif%}
