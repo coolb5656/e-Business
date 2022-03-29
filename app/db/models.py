@@ -40,6 +40,9 @@ class User(db.Model, UserMixin):
         user = User.query.get(data['id'])
         return user
 
+    def as_dict(self):
+        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+
     def __repr__(self):
         return '<User %r>' % self.username
 
@@ -94,6 +97,9 @@ class Order(db.Model):
     products = db.relationship(
         "Product", secondary=product_orders, backref="orders")
 
+    def as_dict(self):
+        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+
     def __repr__(self):
         return '<Order %r>' % self.id
 
@@ -117,6 +123,9 @@ class Category(db.Model):
     name = db.Column(db.String(1000))
     type = db.Column(db.String(1000))
 
+    def as_dict(self):
+        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+
     def __repr__(self):
         return '<Category %r>' % self.name
 
@@ -135,6 +144,9 @@ class Club(db.Model):
 
     pending_orders = db.relationship(
         'Pending_Order', backref='club', lazy=True)
+
+    def as_dict(self):
+        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
 
     def __repr__(self):
         return '<Club %r>' % self.name
