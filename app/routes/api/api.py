@@ -1,4 +1,5 @@
-from flask import Blueprint, render_template, redirect, url_for, request, flash
+import json
+from flask import Blueprint, jsonify, render_template, redirect, url_for, request, flash
 from flask_login import current_user, login_required
 from app.db.models import Club, Pending_Order, db, User, Product, Order, Category
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -108,8 +109,8 @@ def verify_password():
     if token:
         user = user.verify_auth_token(token)
         if user:
-            return "Token Success!"
+            return jsonify({"Token": "Sucess"})
     if password:
         if check_password_hash(user.pwd, password):
-            return "Succes authenticated!"
-    return False
+            return jsonify({"Password": "Sucess"})
+    return jsonify({"Login": "Failure"})
