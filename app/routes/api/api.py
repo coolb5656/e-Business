@@ -1,10 +1,12 @@
 import json
+from unicodedata import category
 from flask import Blueprint, jsonify, render_template, redirect, url_for, request, flash
 from flask_login import current_user, login_required
 from app.db.models import Club, Pending_Order, db, User, Product, Order, Category
 from werkzeug.security import generate_password_hash, check_password_hash
-from sqlalchemy import and_
-import pandas as pd
+from sqlalchemy import and_, or_
+
+from app.routes.shop.shop import search
 
 api = Blueprint('api', __name__, url_prefix='/api')
 
@@ -79,21 +81,6 @@ def delete_item(id):
 
 
 ############# APP STUFF ############
-class MobileLoggedIn:
-    def __init__(self, function):
-        self.function = function
-
-    def __call__(self):
-
-        # We can add some code
-        # before function call
-
-        self.function()
-
-        # We can also add some code
-        # after function call.
-
-
 @api.route("app/signup")
 def app_signup():
     pass
@@ -109,11 +96,33 @@ def verify_password():
     if token:
         user = user.verify_auth_token(token)
         if user:
-            print(f"Login!: {token}")
             return jsonify({"Login": "Sucess", "Token": token})
     if password:
         if check_password_hash(user.pwd, password):
             token = user.generate_auth_token(expiration=0)
-            print(f"Login!: {token}")
             return jsonify({"Login": "Sucess", "Token": token.decode("utf-8")})
     return jsonify({"Login": "Failure"})
+
+
+@api.route("app/main")
+def app_main():
+    category = request.json.get('category')
+    club = request.json.get('club')
+    search = request.json.get('search')
+    p = Product.query.order_by(Product.name.desc()).all()
+    if category:
+        c = Category.query.filter_by(id=category).first()
+        p = c.products
+    if club:
+        c = Club.query.filter_by(id=club).first()
+        p = c.products
+    if search:
+        n = Product.query.filter(Product.name.like('%' + search + '%')).all()
+        k = Product.query.filter(
+            Product.key_words.like('%' + search + '%')).all()
+        p = list(set(n + k))
+
+    products = []
+    for item in p:
+        products.append(item.as_dict())
+    return products

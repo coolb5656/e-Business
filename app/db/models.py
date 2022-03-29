@@ -79,6 +79,9 @@ class Product(db.Model):
     pending_orders = db.relationship(
         'Pending_Order', backref='product', lazy=True)
 
+    def as_dict(self):
+        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+
     def __repr__(self):
         return '<Product %r>' % self.name
 
