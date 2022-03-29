@@ -125,4 +125,17 @@ def app_main():
     products = []
     for item in p:
         products.append(item.as_dict())
-    return products
+    return jsonify(products)
+
+
+@api.route("app/config/club_categories")
+def app_club_categories():
+    cl = Club.query.order_by(Club.name.desc()).all()
+    ca = Category.query.order_by(Category.name.desc()).all()
+    clubs = []
+    categories = []
+    for item in cl:
+        clubs.append(item.as_dict())
+    for item in ca:
+        categories.append(item.as_dict())
+    return jsonify({"clubs": clubs, "categories": categories})
