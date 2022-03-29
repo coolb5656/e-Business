@@ -109,8 +109,8 @@ def verify_password():
     if token:
         user = user.verify_auth_token(token)
         if user:
-            return jsonify({"Token": "Sucess"})
+            return jsonify({"Login": "Sucess", "Token": token})
     if password:
         if check_password_hash(user.pwd, password):
-            return jsonify({"Password": "Sucess"})
+            return jsonify({"Login": "Sucess", "Token": user.generate_auth_token(expiration=0)})
     return jsonify({"Login": "Failure"})
