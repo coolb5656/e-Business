@@ -1,3 +1,4 @@
+from crypt import methods
 import json
 from unicodedata import category
 from flask import Blueprint, jsonify, render_template, redirect, url_for, request, flash
@@ -104,7 +105,7 @@ def verify_password():
     return jsonify({"Login": "Failure"})
 
 
-@api.route("app/main")
+@api.route("app/main", methods=["POST"])
 def app_main():
     category = request.json.get('category')
     club = request.json.get('club')
