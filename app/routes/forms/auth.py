@@ -21,6 +21,7 @@ dashboard
 logout
 """
 
+
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
     error = None
@@ -30,7 +31,6 @@ def login():
 
         u = User.query.filter_by(email=email).first()
 
-
         if not u or not check_password_hash(u.pwd, password):
             flash("Wrong Email or Password!", "Error")
             return redirect(url_for("auth.login"))
@@ -39,6 +39,23 @@ def login():
         return redirect(url_for('main.index'))
 
     return render_template('auth/login.html', error=error)
+
+
+@auth.route('/login-guest', methods=['GET', 'POST'])
+def login_guest():
+    error = None
+    email = "guestClub@guest.com"
+    password = "1234"
+
+    u = User.query.filter_by(email=email).first()
+
+    if not u or not check_password_hash(u.pwd, password):
+        flash("Wrong Email or Password!", "Error")
+        return redirect(url_for("auth.login"))
+
+    login_user(u)
+    return redirect(url_for('main.index'))
+
 
 @auth.route("/signup/student", methods=["GET", "POST"])
 def signup():
@@ -53,14 +70,15 @@ def signup():
 
         u = User.query.filter_by(email=email).first()
 
-        if u: 
+        if u:
             flash('Email address already registered!', "Error")
             return redirect(url_for('auth.signup'))
 
         if picture.filename != '':
             fname = secure_filename(picture.filename)
             ext = os.path.splitext(fname)
-            file_path = os.path.join(current_app.config['UPLOAD_FOLDER'], email + ext[1])
+            file_path = os.path.join(
+                current_app.config['UPLOAD_FOLDER'], email + ext[1])
             picture.save(file_path)
 
         new_user = User(
@@ -72,7 +90,7 @@ def signup():
             address=address,
             role="student",
             phonenum=phonenum
-            )
+        )
         # add the new user to the database
         db.session.add(new_user)
         db.session.commit()
@@ -80,6 +98,7 @@ def signup():
         return redirect(url_for('auth.login'))
 
     return render_template('auth/signup.html')
+
 
 @auth.route("/signup/club", methods=["GET", "POST"])
 @login_required
@@ -92,14 +111,15 @@ def signup_club():
         phonenum = request.form.get('phonenum')
 
         c = Club.query.filter_by(name=name).first()
-        if c: 
+        if c:
             flash('Club name already registered!', "Error")
             return redirect(url_for('auth.signup_club'))
 
         if logo.filename != '':
             fname = secure_filename(logo.filename)
             ext = os.path.splitext(fname)
-            file_path = os.path.join(current_app.config['UPLOAD_FOLDER'], name + ext[1])
+            file_path = os.path.join(
+                current_app.config['UPLOAD_FOLDER'], name + ext[1])
             logo.save(file_path)
 
         new_club = Club(
@@ -108,7 +128,7 @@ def signup_club():
             desc=desc,
             key_words=key_words,
             phonenum=phonenum
-            )
+        )
         # add the new user to the database
         db.session.add(new_club)
         os.mkdir(os.path.join(current_app.config['UPLOAD_FOLDER'], name))
@@ -128,6 +148,7 @@ def auth_dashboard():
         return redirect(url_for("student.dashboard"))
     if current_user.role == "admin":
         return redirect(url_for("admin.dashboard"))
+
 
 @auth.route('/logout')
 @login_required

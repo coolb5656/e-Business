@@ -15,10 +15,8 @@
         <div class="mb-3">
           {{m.input("pwd","Password: ", type="password")}}
         </div>
-        <div class="mb-3 form-check">
-          {{m.input("remember","Remember Me", type="checkbox", class="form-check-input")}}
-        </div>
         <button type="submit" class="btn btn-primary">Submit</button>
+        <a href="{{url_for('auth.login_guest')}}" class="btn btn-primary">Login As Guest</a>
       </form>
     </div>
   </div>
